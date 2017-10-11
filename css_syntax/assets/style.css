@@ -1,0 +1,34 @@
+body {
+  font-family: arial, sans-serif;
+  background-color: grey;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+.ingredients-list {
+  list-style: square inside;
+}
+
+ol li {
+  list-style: upper-roman inside;
+}
+
+header > img {
+  width: 100px;
+}
+
+
+ul > li > a {
+  text-decoration: none;
+  color: inherit;
+}
+/*
+.ordered-list {
+  list-style: square inside;
+}*/
