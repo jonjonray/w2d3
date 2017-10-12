@@ -63,7 +63,8 @@ end
 
 describe Hand do
   describe "#initialize" do
-    subject(:hand) { Hand.new }
+    let(:deck) {Deck.new}
+    subject(:hand) { Hand.new(deck)}
 
     it "creates a 5-card hand" do
       expect(hand.cards.length).to eq(5)
@@ -71,6 +72,40 @@ describe Hand do
 
     it "takes in a deck" do
       expect(hand.deck).to be_a(Deck)
+    end
+  end
+
+  describe "#strength_of_hand" do
+    let(:deck) {Deck.new}
+    subject(:hand) { Hand.new(deck) }
+    let(:card1) {Card.new(:A, :spade)}
+    let(:card2) {Card.new(2, :heart)}
+    let(:card3) {Card.new(3, :diamond)}
+    let(:card4) {Card.new(4, :spade)}
+    let(:card5) {Card.new(5, :spade)}
+
+    it "returns index of the hand tier" do
+      hand.cards = [card1,card2,card3,card4,card5]
+      expect(hand.strength_of_hand).to eq(4)
+    end
+  end
+
+  describe "#tiebreaker" do
+    let(:deck) {Deck.new}
+    subject(:hand1) { Hand.new(deck) }
+    subject(:hand2) { Hand.new(deck) }
+    subject(:hand3) { Hand.new(deck) }
+
+    it "returns hand with winning kicker" do
+      expect(Hand.tiebreaker(hand1, hand2)).to be([hand1])
+    end
+
+    it "returns multiple hands if they are equal" do
+      expect(Hand.tiebreaker(hand1, hand2)).to be([hand1, hand2])
+    end
+
+    it "takes in multiple hands" do
+      expect(Hand.tiebreaker(hand1, hand2, hand3)).to_not raise_error
     end
   end
 end
